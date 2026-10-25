@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Dash N Dine, an independently developed 3D driving game built with Godot.">
+  <title>Dash N Dine | Game Development Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131b2e;
+      --text: #f4f7ff;
+      --muted: #a5b1c8;
+      --accent: #75e0b0;
+      --line: #29344a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); }
+
+    .container {
+      width: min(1080px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 100px 0 85px;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(46px, 8vw, 78px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin: 18px 0;
+    }
+
+    h2 {
+      font-size: clamp(27px, 4vw, 38px);
+      line-height: 1.2;
+      margin-top: 0;
+    }
+
+    h3 { margin-bottom: 8px; }
+
+    p { color: var(--muted); }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 650px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 19px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #0b1020;
+      border-color: var(--accent);
+    }
+
+    section {
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 20px;
+    }
+
+    .section-intro {
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      border: 1px solid #345747;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 12px;
+      margin: 3px 4px 3px 0;
+    }
+
+    .feedback-note {
+      border-left: 3px solid var(--accent);
+      padding: 12px 18px;
+      background: var(--panel);
+      border-radius: 0 8px 8px 0;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding: 65px 0; }
+      nav { align-items: flex-start; flex-direction: column; }
+      h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <a class="brand" href="#">DASH N DINE</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#feedback">Player Feedback</a>
+        <a href="#project">Project Links</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">Independent Game Development</div>
+      <h1>Dash N Dine.</h1>
+      <p>
+        Designing and developing a 3D driving game with Godot,
+        combining city-building, road networks, and waypoint-based
+        navigation into an interactive experience.
+      </p>
+      <div>
+        <span class="tag">Godot Engine</span>
+        <span class="tag">GDScript</span>
+        <span class="tag">3D Development</span>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="#project">Explore the Project ↓</a>
+        <a class="button" href="#engineering">How It Was Built</a>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="section-intro">
+        <div class="eyebrow">01 / Overview</div>
+        <h2>From an idea to a playable world.</h2>
+        <p>
+          Dash N Dine is an independent game development project
+          built in Godot. The project explores how a 3D driving
+          environment can connect roads, destinations, and navigation
+          into a cohesive gameplay experience.
+        </p>
+        <p>
+          This portfolio documents the design decisions, technical
+          challenges, player testing, and improvements behind the game.
+        </p>
+      </div>
+    </section>
+
+    <section id="engineering">
+      <div class="section-intro">
+        <div class="eyebrow">02 / Engineering</div>
+        <h2>Building the systems behind the drive.</h2>
+        <p>
+          The project involves more than creating a city to drive
+          through. Its systems must work together to make the world
+          navigable and the experience playable.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>City Environment</h3>
+          <p>
+            Developing a 3D urban environment with roads, sidewalks,
+            blocks, and buildings to create a connected driving world.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Road Network</h3>
+          <p>
+            Connecting waypoints to represent road paths and help
+            the game determine routes through the environment.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Navigation</h3>
+          <p>
+            Working on route selection and destination-based
+            navigation so the player can reach intended locations.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Debugging & Iteration</h3>
+          <p>
+            Testing the game, diagnosing unexpected behavior,
+            and refining systems as development progresses.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="feedback">
+      <div class="section-intro">
+        <div class="eyebrow">03 / Player Research</div>
+        <h2>Turning feedback into improvements.</h2>
+        <p>
+          Player feedback provides a way to evaluate the game
+          beyond my own experience as its developer.
+        </p>
+      </div>
+
+      <div class="feedback-note">
+        <strong>Player testing results</strong>
+        <p>
+          This section will present results from actual player
+          feedback, including survey findings, response counts,
+          and areas identified for improvement.
+        </p>
+        <p>
+          Charts and statistics will be added after the feedback
+          data has been organized and analyzed.
+        </p>
+      </div>
+    </section>
+
+    <section id="project">
+      <div class="section-intro">
+        <div class="eyebrow">04 / Explore Further</div>
+        <h2>Explore the project.</h2>
+        <p>
+          Play the game, explore its development, or inspect the
+          source code.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Game Demo</h3>
+          <p>Play Dash N Dine in your browser.</p>
+          <span>Demo link coming soon.</span>
+        </article>
+
+        <article class="card">
+          <h3>Source Code</h3>
+          <p>Explore the code, project structure, and technical work.</p>
+          <span>Repository link coming soon.</span>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>Dash N Dine · Independent Game Development Project</p>
+    </footer>
+  </div>
+</body>
+</html>
