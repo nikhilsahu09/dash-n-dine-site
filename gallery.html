@@ -1,120 +1,90 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#22262e">
+  <meta name="description" content="Screenshots of Dash N Dine gameplay, city environment, and development work.">
   <title>Gallery | Dash N Dine</title>
-  <style>
-    :root {
-      --bg:#22262e; --sidebar:#292e38; --panel:#303743;
-      --blue:#78b7ed; --blue-dark:#9acfff; --blue-soft:#354b61;
-      --text:#e6edf5; --muted:#a3afbf; --line:#414956;
-      --shadow:0 5px 20px #00000020;
-    }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,sans-serif; line-height:1.7; }
-    a { color:var(--blue-dark); }
-    .sidebar { position:fixed; inset:0 auto 0 0; width:250px; padding:30px 20px; background:var(--sidebar); border-right:1px solid var(--line); }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--blue);
-  margin-bottom: 5px;
-}
-
-.brand-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--blue);
-  color: #22262e;
-  font-size: 22px;
-  font-weight: 900;
-}
-    .tagline { color:var(--muted); font-size:13px; margin-bottom:32px; }
-    .nav-label { color:var(--muted); font-size:11px; font-weight:bold; letter-spacing:2px; margin:24px 12px 10px; }
-    nav a { display:block; padding:11px 13px; margin:5px 0; border-radius:9px; color:var(--muted); text-decoration:none; font-size:14px; }
-    nav a:hover, nav a.active { color:var(--blue-dark); background:var(--blue-soft); }
-    main { margin-left:250px; padding:38px; max-width:1400px; }
-    .topbar { padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:35px; }
-    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:bold; }
-    h1 { font-size:clamp(32px,5vw,48px); line-height:1.15; margin:8px 0 14px; }
-    h2 { font-size:22px; margin:12px 0 5px; }
-    p { color:var(--muted); }
-    .intro { max-width:800px; font-size:17px; }
-    .gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin-top:28px; }
-    .panel { background:var(--panel); border:1px solid var(--line); border-radius:15px; padding:18px; box-shadow:var(--shadow); min-width:0; }
-    .gallery img { display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--line); }
-    .caption { color:var(--muted); font-size:14px; }
-    .pill { display:inline-block; padding:5px 10px; border-radius:20px; background:var(--blue-soft); color:var(--blue-dark); font-size:12px; }
-    footer { color:var(--muted); border-top:1px solid var(--line); margin-top:40px; padding-top:20px; font-size:13px; }
-    @media(max-width:900px) { .sidebar { width:215px; } main { margin-left:215px; padding:25px; } .gallery { grid-template-columns:1fr; } }
-    @media(max-width:700px) { .sidebar { position:sticky; width:100%; height:auto; padding:14px; z-index:5; } .brand { font-size:20px; } .tagline,.nav-label { display:none; } nav { display:flex; overflow-x:auto; gap:5px; } nav a { white-space:nowrap; padding:8px 10px; margin:5px 0 0; font-size:12px; } main { margin-left:0; padding:22px 16px; } .topbar { margin-bottom:25px; } }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
   <aside class="sidebar">
-    <div class="brand">
-  <span class="brand-icon">D</span>
-  <span>Dash N Dine</span>
-</div>
+    <a class="brand" href="index.html" aria-label="Dash N Dine home">
+      <span class="brand-icon" aria-hidden="true">D</span>
+      <span>
+        <span class="brand-name">DASH N DINE</span>
+        <span class="brand-subtitle">PROJECT HUB</span>
+      </span>
+    </a>
     <div class="tagline">A city-driving delivery game</div>
-    <div class="nav-label">PROJECT MENU</div>
-    <nav>
-      <a href="index.html">Overview</a>
-      <a href="about.html">About the Project</a>
-      <a href="engineering.html">Engineering</a>
-      <a class="active" href="gallery.html" aria-current="page">Gallery</a>
-      <a href="feedback.html">Player Feedback</a>
-      <a href="links.html">Project Links</a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html"><span class="nav-icon" aria-hidden="true">▦</span>Overview</a>
+      <a href="about.html"><span class="nav-icon" aria-hidden="true">◉</span>About the Project</a>
+      <a href="engineering.html"><span class="nav-icon" aria-hidden="true">⌘</span>Engineering</a>
+      <a href="gallery.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">▧</span>Gallery</a>
+      <a href="feedback.html"><span class="nav-icon" aria-hidden="true">▤</span>Player Feedback</a>
+      <a href="links.html"><span class="nav-icon" aria-hidden="true">↗</span>Project Links</a>
     </nav>
+    <div class="sidebar-bottom">
+      <strong>Independent Game Development</strong>
+      Built with Godot Engine
+    </div>
   </aside>
 
   <main>
-    <header class="topbar">
-      <div class="eyebrow">Screenshots & visuals</div>
-      <h1>Project Gallery</h1>
-      <p class="intro">A look at the world, gameplay, and development behind Dash N Dine.</p>
-    </header>
+    <div class="content">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace / <strong>Project Gallery</strong></div>
+        <div class="status"><span class="status-dot"></span>In Development</div>
+      </header>
 
-    <section class="gallery">
-      <article class="panel">
-        <img src="images/gameplay.png.png" alt="Gameplay screenshot from Dash N Dine">
-        <h2>Gameplay</h2>
-        <p class="caption">A look at the game in action and the player’s experience behind the wheel.</p>
-        <span class="pill">Gameplay</span>
-      </article>
+      <section class="hero">
+        <div class="eyebrow">Screenshots & development</div>
+        <h1>Project Gallery<span style="color:var(--blue)">.</span></h1>
+        <p class="lead">A closer look at the current build—from the driving environment to the code behind it. These are work-in-progress visuals, not promotional mockups.</p>
+      </section>
 
-      <article class="panel">
-        <img src="images/city.png.png" alt="City environment from Dash N Dine">
-        <h2>City Environment</h2>
-        <p class="caption">The roads, blocks, and buildings that make up the game’s urban setting.</p>
-        <span class="pill">World Design</span>
-      </article>
 
-      <article class="panel">
-        <img src="images/code.png.png" alt="Development code for Dash N Dine">
-        <h2>Under the Hood</h2>
-        <p class="caption">A glimpse at the code and technical work that goes into building the project.</p>
-        <span class="pill">Development</span>
-      </article>
-    </section>
+      <section class="section">
+        <div class="eyebrow">Screenshots from development</div>
+        <h2>The game as it looks today</h2>
+        <p class="lead">These images show the current project and the work behind it. As the city and gameplay develop, this gallery can grow with new areas, systems, and milestones.</p>
+        <div class="gallery-grid">
+          <article class="panel gallery-card">
+            <img src="images/gameplay.png.png" alt="Gameplay screenshot from Dash N Dine" loading="lazy">
+            <h2>Gameplay</h2>
+            <p class="caption">A current look at the game from behind the wheel.</p>
+            <span class="pill">Gameplay</span>
+          </article>
+          <article class="panel gallery-card">
+            <img src="images/city.png.png" alt="City environment from Dash N Dine" loading="lazy">
+            <h2>City environment</h2>
+            <p class="caption">The streets, blocks, and buildings that form the driving environment.</p>
+            <span class="pill">World design</span>
+          </article>
+          <article class="panel gallery-card">
+            <img src="images/code.png.png" alt="Development code for Dash N Dine" loading="lazy">
+            <h2>Under the hood</h2>
+            <p class="caption">A look at the scripting and technical work that supports the project.</p>
+            <span class="pill">Development</span>
+          </article>
+        </div>
+      </section>
+      <section class="section panel">
+        <div class="eyebrow">Next additions</div>
+        <h2>More than screenshots</h2>
+        <p>Future updates can include the garage and vehicle selection, routefinding tests, the minimap, and short clips showing how the game behaves. Only real project screenshots and recorded gameplay will be added here.</p>
+      </section>
 
-    <section class="panel" style="margin-top:24px">
-      <div class="eyebrow">Work in progress</div>
-      <h2>More to come</h2>
-      <p>This gallery will grow as new gameplay features, city areas, and development milestones are completed. The screenshots above use the project images currently available in the repository.</p>
-    </section>
 
-    <footer>Dash N Dine · Project Gallery</footer>
+      <footer class="footer">
+        <span><strong>Dash N Dine</strong> · Independent game project</span>
+        <span>Built with Godot · Work in progress</span>
+      </footer>
+    </div>
   </main>
 </body>
 </html>

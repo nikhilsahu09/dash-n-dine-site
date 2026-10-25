@@ -1,130 +1,98 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#22262e">
+  <meta name="description" content="Project resources for Dash N Dine, including the Godot Engine and links to the source repository and future playable build.">
   <title>Project Links | Dash N Dine</title>
-  <style>
-    :root {
-      --bg:#22262e; --sidebar:#292e38; --panel:#303743;
-      --blue:#78b7ed; --blue-dark:#9acfff; --blue-soft:#354b61;
-      --text:#e6edf5; --muted:#a3afbf; --line:#414956;
-      --shadow:0 5px 20px #00000020;
-    }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,sans-serif; line-height:1.7; }
-    a { color:var(--blue-dark); }
-    .sidebar { position:fixed; inset:0 auto 0 0; width:250px; padding:30px 20px; background:var(--sidebar); border-right:1px solid var(--line); }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--blue);
-  margin-bottom: 5px;
-}
-
-.brand-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--blue);
-  color: #22262e;
-  font-size: 22px;
-  font-weight: 900;
-}
-    .tagline { color:var(--muted); font-size:13px; margin-bottom:32px; }
-    .nav-label { color:var(--muted); font-size:11px; font-weight:bold; letter-spacing:2px; margin:24px 12px 10px; }
-    nav a { display:block; padding:11px 13px; margin:5px 0; border-radius:9px; color:var(--muted); text-decoration:none; font-size:14px; }
-    nav a:hover, nav a.active { color:var(--blue-dark); background:var(--blue-soft); }
-    main { margin-left:250px; padding:38px; max-width:1200px; }
-    .topbar { padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:35px; }
-    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:bold; }
-    h1 { font-size:clamp(32px,5vw,48px); line-height:1.15; margin:8px 0 14px; }
-    h2 { font-size:21px; margin:8px 0; }
-    p { color:var(--muted); }
-    .intro { max-width:800px; font-size:17px; }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; margin-top:25px; }
-    .panel { background:var(--panel); border:1px solid var(--line); border-radius:15px; padding:24px; box-shadow:var(--shadow); }
-    .icon { font-size:26px; }
-    .link { display:inline-block; margin-top:8px; font-weight:bold; text-decoration:none; }
-    .link:hover { text-decoration:underline; }
-    .note { border-left:3px solid var(--blue); padding:12px 16px; background:#78b7ed10; border-radius:0 9px 9px 0; }
-    footer { color:var(--muted); border-top:1px solid var(--line); margin-top:40px; padding-top:20px; font-size:13px; }
-    @media(max-width:900px) { .sidebar { width:215px; } main { margin-left:215px; padding:25px; } .grid { grid-template-columns:1fr; } }
-    @media(max-width:700px) { .sidebar { position:sticky; width:100%; height:auto; padding:14px; z-index:5; } .brand { font-size:20px; } .tagline,.nav-label { display:none; } nav { display:flex; overflow-x:auto; gap:5px; } nav a { white-space:nowrap; padding:8px 10px; margin:5px 0 0; font-size:12px; } main { margin-left:0; padding:22px 16px; } .topbar { margin-bottom:25px; } }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
   <aside class="sidebar">
-    <div class="brand">
-  <span class="brand-icon">D</span>
-  <span>Dash N Dine</span>
-</div>
+    <a class="brand" href="index.html" aria-label="Dash N Dine home">
+      <span class="brand-icon" aria-hidden="true">D</span>
+      <span>
+        <span class="brand-name">DASH N DINE</span>
+        <span class="brand-subtitle">PROJECT HUB</span>
+      </span>
+    </a>
     <div class="tagline">A city-driving delivery game</div>
-    <div class="nav-label">PROJECT MENU</div>
-    <nav>
-      <a href="index.html">Overview</a>
-      <a href="about.html">About the Project</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="feedback.html">Player Feedback</a>
-      <a class="active" href="links.html" aria-current="page">Project Links</a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html"><span class="nav-icon" aria-hidden="true">▦</span>Overview</a>
+      <a href="about.html"><span class="nav-icon" aria-hidden="true">◉</span>About the Project</a>
+      <a href="engineering.html"><span class="nav-icon" aria-hidden="true">⌘</span>Engineering</a>
+      <a href="gallery.html"><span class="nav-icon" aria-hidden="true">▧</span>Gallery</a>
+      <a href="feedback.html"><span class="nav-icon" aria-hidden="true">▤</span>Player Feedback</a>
+      <a href="links.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">↗</span>Project Links</a>
     </nav>
+    <div class="sidebar-bottom">
+      <strong>Independent Game Development</strong>
+      Built with Godot Engine
+    </div>
   </aside>
 
   <main>
-    <header class="topbar">
-      <div class="eyebrow">Explore the project</div>
-      <h1>Project Links</h1>
-      <p class="intro">Find the game, its source code, and the tools used to build it.</p>
-    </header>
+    <div class="content">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace / <strong>Project Links</strong></div>
+        <div class="status"><span class="status-dot"></span>In Development</div>
+      </header>
 
-    <section class="grid">
-      <article class="panel">
-        <div class="icon">🎮</div>
-        <h2>Play Dash N Dine</h2>
-        <p>Open the browser version of the game, if your web export is deployed and working.</p>
-        <a class="link" href="#" onclick="alert('Replace this link with your deployed game URL.'); return false;">Add game URL →</a>
-      </article>
+      <section class="hero">
+        <div class="eyebrow">Resources & next steps</div>
+        <h1>Project Links<span style="color:var(--blue)">.</span></h1>
+        <p class="lead">The key resources for following Dash N Dine. The source repository and playable browser build will be linked here when the direct URLs are ready.</p>
+      </section>
 
-      <article class="panel">
-        <div class="icon">💻</div>
-        <h2>Source Code</h2>
-        <p>Explore the website repository and its files on GitHub.</p>
-        <a class="link" href="https://github.com/" target="_blank" rel="noopener noreferrer">Open GitHub →</a>
-        <p>Replace this generic link with the direct URL to your game or website repository.</p>
-      </article>
 
-      <article class="panel">
-        <div class="icon">🛠️</div>
-        <h2>Built with Godot</h2>
-        <p>Dash N Dine is being developed with the Godot Engine.</p>
-        <a class="link" href="https://godotengine.org/" target="_blank" rel="noopener noreferrer">Visit Godot →</a>
-      </article>
+      <section class="section">
+        <div class="section-heading">
+          <div class="eyebrow">Project resources</div>
+          <h2>Follow the work</h2>
+          <p>Useful links for exploring the project, the engine behind it, and the pages documenting its development.</p>
+        </div>
+        <div class="grid">
+          <article class="panel link-card">
+            <div class="feature-icon" aria-hidden="true">🎮</div>
+            <h3>Playable build</h3>
+            <p>The Godot project runs in the editor, but the browser export is still being debugged. A playable web link will be added once the exported build is reliable.</p>
+            <span class="pill">Not available yet</span>
+          </article>
+          <article class="panel link-card">
+            <div class="feature-icon" aria-hidden="true">⌘</div>
+            <h3>Source repository</h3>
+            <p>Add the direct URL to your GitHub repository here so visitors can inspect the actual project files.</p>
+            <span class="pill">Repository URL needed</span>
+          </article>
+          <article class="panel link-card">
+            <div class="feature-icon" aria-hidden="true">⚙</div>
+            <h3>Godot Engine</h3>
+            <p>The game is being developed with Godot and GDScript.</p>
+            <a class="button" href="https://godotengine.org/" target="_blank" rel="noopener noreferrer">Visit Godot →</a>
+          </article>
+          <article class="panel link-card">
+            <div class="feature-icon" aria-hidden="true">▦</div>
+            <h3>Project overview</h3>
+            <p>Start with the game concept, then explore the visuals and engineering notes.</p>
+            <a class="button" href="index.html">Back to Overview →</a>
+          </article>
+        </div>
+      </section>
+      <section class="section panel">
+        <div class="eyebrow">Before publishing</div>
+        <h2>Use direct project links</h2>
+        <p>When you're ready, replace the repository note with the actual GitHub repository URL and add the deployed game link after the browser export works. It's better to mark a link as coming soon than send visitors to a placeholder.</p>
+      </section>
 
-      <article class="panel">
-        <div class="icon">🌐</div>
-        <h2>Portfolio Website</h2>
-        <p>You are viewing the project portfolio, which presents the game's development, visuals, and technical work.</p>
-        <a class="link" href="index.html">Back to Overview →</a>
-      </article>
-    </section>
 
-    <section class="panel" style="margin-top:22px">
-      <div class="eyebrow">Before publishing</div>
-      <h2>Update your links</h2>
-      <p>The GitHub and Godot links work as written, but the GitHub link currently leads to the general GitHub website. Update it to your actual repository, and replace the game link with your deployed game URL.</p>
-      <div class="note">Use your real published URLs rather than placeholder links so visitors can get directly to your project.</div>
-    </section>
-
-    <footer>Dash N Dine · Project Links</footer>
+      <footer class="footer">
+        <span><strong>Dash N Dine</strong> · Independent game project</span>
+        <span>Built with Godot · Work in progress</span>
+      </footer>
+    </div>
   </main>
 </body>
 </html>

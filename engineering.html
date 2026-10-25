@@ -1,494 +1,102 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#22262e">
-  <meta name="description" content="Explore the engineering and development behind Dash N Dine, a 3D city-driving delivery game.">
+  <meta name="description" content="Technical details about the city environment, waypoint routing, vehicle selection, debugging, and web export of Dash N Dine.">
   <title>Engineering | Dash N Dine</title>
-
-  <style>
-    :root {
-      --bg: #22262e;
-      --sidebar: #292e38;
-      --panel: #303743;
-      --blue: #78b7ed;
-      --blue-dark: #9acfff;
-      --blue-soft: #354b61;
-      --text: #e6edf5;
-      --muted: #a3afbf;
-      --line: #414956;
-      --shadow: 0 5px 20px #00000020;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.7;
-    }
-
-    a {
-      color: var(--blue-dark);
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      inset: 0 auto 0 0;
-      width: 250px;
-      height: 100vh;
-      padding: 30px 20px;
-      overflow-y: auto;
-      background: var(--sidebar);
-      border-right: 1px solid var(--line);
-      z-index: 100;
-    }
-
-    /* LOGO */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--blue);
-      margin-bottom: 5px;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      min-width: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      border-radius: 10px;
-      background: #78b7ed;
-      color: #22262e;
-      font-size: 22px;
-      font-weight: 900;
-      line-height: 1;
-      text-align: center;
-      visibility: visible;
-      opacity: 1;
-    }
-
-    .tagline {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 32px;
-    }
-
-    .nav-label {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin: 24px 12px 10px;
-    }
-
-    nav a {
-      display: block;
-      padding: 11px 13px;
-      margin: 5px 0;
-      border-radius: 9px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: var(--blue-dark);
-      background: var(--blue-soft);
-    }
-
-    /* MAIN CONTENT */
-    main {
-      margin-left: 250px;
-      padding: 38px;
-      max-width: 1650px;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 35px;
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.15;
-      margin: 8px 0 14px;
-    }
-
-    h2 {
-      font-size: 23px;
-      line-height: 1.3;
-      margin: 8px 0 12px;
-    }
-
-    h3 {
-      font-size: 17px;
-    }
-
-    p {
-      color: var(--muted);
-    }
-
-    .topbar p {
-      margin-bottom: 0;
-    }
-
-    .intro {
-      max-width: 800px;
-      font-size: 17px;
-    }
-
-    /* DEVELOPMENT CARDS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin: 25px 0;
-    }
-
-    .panel {
-      min-width: 0;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .number {
-      color: var(--blue);
-      font-weight: bold;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 20px;
-      background: var(--blue-soft);
-      color: var(--blue-dark);
-      font-size: 12px;
-      margin: 3px;
-    }
-
-    .image {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      margin-top: 18px;
-    }
-
-    .note {
-      border-left: 3px solid var(--blue);
-      padding: 12px 16px;
-      background: #78b7ed10;
-      border-radius: 0 9px 9px 0;
-      color: var(--muted);
-    }
-
-    footer {
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      margin-top: 40px;
-      padding-top: 20px;
-      font-size: 13px;
-    }
-
-    /* TABLET */
-    @media (max-width: 1000px) {
-      .sidebar {
-        width: 215px;
-      }
-
-      main {
-        margin-left: 215px;
-        padding: 25px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* MOBILE */
-    @media (max-width: 700px) {
-      .sidebar {
-        position: sticky;
-        top: 0;
-        width: 100%;
-        height: auto;
-        padding: 12px 14px;
-        z-index: 100;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 20px;
-      }
-
-      .brand-icon {
-        display: inline-flex;
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
-        font-size: 20px;
-        background: #78b7ed;
-        color: #22262e;
-      }
-
-      .tagline,
-      .nav-label {
-        display: none;
-      }
-
-      nav {
-        display: flex;
-        overflow-x: auto;
-        gap: 5px;
-      }
-
-      nav a {
-        white-space: nowrap;
-        flex-shrink: 0;
-        padding: 8px 10px;
-        margin: 5px 0 0;
-        font-size: 12px;
-      }
-
-      main {
-        margin-left: 0;
-        padding: 22px 16px;
-      }
-
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 25px;
-      }
-
-      h1 {
-        font-size: clamp(30px, 8vw, 40px);
-      }
-
-      .panel {
-        padding: 19px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      nav a {
-        transition: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  
 </head>
-
 <body>
   <aside class="sidebar">
-
-    <!-- DASH N DINE LOGO -->
-    <div class="brand">
+    <a class="brand" href="index.html" aria-label="Dash N Dine home">
       <span class="brand-icon" aria-hidden="true">D</span>
-      <span>Dash N Dine</span>
-    </div>
-
+      <span>
+        <span class="brand-name">DASH N DINE</span>
+        <span class="brand-subtitle">PROJECT HUB</span>
+      </span>
+    </a>
     <div class="tagline">A city-driving delivery game</div>
-
-    <div class="nav-label">PROJECT MENU</div>
-
-    <nav aria-label="Main navigation">
-      <a href="index.html">Overview</a>
-      <a href="about.html">About the Project</a>
-      <a class="active" href="engineering.html" aria-current="page">Engineering</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="feedback.html">Player Feedback</a>
-      <a href="links.html">Project Links</a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html"><span class="nav-icon" aria-hidden="true">▦</span>Overview</a>
+      <a href="about.html"><span class="nav-icon" aria-hidden="true">◉</span>About the Project</a>
+      <a href="engineering.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">⌘</span>Engineering</a>
+      <a href="gallery.html"><span class="nav-icon" aria-hidden="true">▧</span>Gallery</a>
+      <a href="feedback.html"><span class="nav-icon" aria-hidden="true">▤</span>Player Feedback</a>
+      <a href="links.html"><span class="nav-icon" aria-hidden="true">↗</span>Project Links</a>
     </nav>
-
+    <div class="sidebar-bottom">
+      <strong>Independent Game Development</strong>
+      Built with Godot Engine
+    </div>
   </aside>
 
   <main>
+    <div class="content">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace / <strong>Engineering</strong></div>
+        <div class="status"><span class="status-dot"></span>In Development</div>
+      </header>
 
-    <header class="topbar">
-      <div>
+      <section class="hero">
         <div class="eyebrow">Behind the build</div>
-        <h1>Engineering &amp; Development</h1>
-        <p>How Dash N Dine is being built, tested, and improved.</p>
-      </div>
+        <h1>Engineering<span style="color:var(--blue)">.</span></h1>
+        <p class="lead">The work behind Dash N Dine goes beyond placing roads and buildings. The city, waypoint network, vehicle selection, and exported game all have to work together.</p>
+      </section>
 
-      <span class="pill">Godot Engine</span>
-    </header>
 
-    <section>
-      <div class="eyebrow">Technical overview</div>
-      <h2>Turning a Game Idea into a Working System</h2>
+      <section class="section">
+        <div class="eyebrow">Technical overview</div>
+        <h2>Making the pieces work together</h2>
+        <p class="lead">The main engineering challenge is coordination: the city layout, waypoint network, vehicle selection, and exported build all have to behave as expected. Here are the systems I'm working on and the problems that come with them.</p>
+        <div class="grid">
+          <article class="panel">
+            <div class="card-number">01 / ENVIRONMENT</div>
+            <h3>Building the city</h3>
+            <p>The environment is assembled from roads, sidewalks, buildings, and scene objects. Keeping the layout organized makes it easier to expand the city and test how the driving systems interact with it.</p>
+            <img class="media" src="images/city.png.png" alt="City environment from Dash N Dine" loading="lazy">
+            <p class="media-caption">City environment · current project image</p>
+          </article>
+          <article class="panel">
+            <div class="card-number">02 / NAVIGATION</div>
+            <h3>Waypoints and route selection</h3>
+            <p>Waypoints need meaningful connections. Picking the nearest marker isn't enough if it sends a vehicle toward the wrong street or cuts a corner. The route logic must account for the road network and the destination being requested.</p>
+            <p>Testing focuses on connections, turns, route choice, and whether the selected path actually reaches the intended location.</p>
+          </article>
+          <article class="panel">
+            <div class="card-number">03 / GAMEPLAY FLOW</div>
+            <h3>Garage to driving scene</h3>
+            <p>The vehicle chosen in the garage needs to be the vehicle that appears in gameplay. That means checking how selection data is stored, passed between scenes, and used when the driving scene starts.</p>
+            <img class="media" src="images/gameplay.png.png" alt="Dash N Dine gameplay view" loading="lazy">
+            <p class="media-caption">Gameplay · current project image</p>
+          </article>
+          <article class="panel">
+            <div class="card-number">04 / EXPORT & DEBUGGING</div>
+            <h3>Editor versus browser</h3>
+            <p>A game that runs in the editor can still fail after export. The current web build has a memory-related issue, so the browser version needs further troubleshooting before it can be presented as playable.</p>
+            <p>The process is to reproduce the failure, check the relevant project settings and logs, change one thing at a time, and retest the exported build.</p>
+            <img class="media" src="images/code.png.png" alt="Code used while developing Dash N Dine" loading="lazy">
+            <p class="media-caption">Development code · current project image</p>
+          </article>
+        </div>
+      </section>
+      <section class="section panel">
+        <div class="eyebrow">How I work</div>
+        <h2>Test the system, not just the scene</h2>
+        <p>When a feature breaks, I try to narrow the issue down: confirm what should happen, reproduce what actually happens, inspect the relevant script or scene setup, make a targeted change, and test again. That matters especially when multiple systems depend on each other.</p>
+        <p style="margin-top:12px"><span class="pill">Godot</span><span class="pill">GDScript</span><span class="pill">Scene organization</span><span class="pill">Waypoint routing</span><span class="pill">Export testing</span></p>
+        <div class="note">The browser export is not yet reliable. The site reflects that status instead of linking visitors to a build that may not run.</div>
+      </section>
 
-      <p class="intro">
-        Dash N Dine combines a 3D city environment with driving and delivery
-        gameplay. Development involves building the world, organizing scenes
-        and scripts, and connecting gameplay systems so that the different
-        parts work together. Each feature is refined through implementation,
-        testing, and debugging.
-      </p>
-    </section>
 
-    <div class="grid">
-
-      <article class="panel">
-        <div class="number">01 / ENVIRONMENT</div>
-        <h2>Building the City</h2>
-
-        <p>
-          The city is assembled from roads, sidewalks, buildings, and supporting
-          scene objects. The goal is to create an organized environment that
-          gives players room to navigate and explore.
-        </p>
-
-        <img
-          class="image"
-          src="images/city.png.png"
-          alt="City environment in Dash N Dine"
-          loading="lazy"
-        >
-      </article>
-
-      <article class="panel">
-        <div class="number">02 / NAVIGATION</div>
-        <h2>Roads &amp; Waypoints</h2>
-
-        <p>
-          Waypoints represent locations within the road network and help define
-          possible paths through the city. Their connections are important:
-          a useful route should follow the road layout and lead toward the
-          intended destination rather than simply selecting the nearest point.
-        </p>
-
-        <p>
-          Testing focuses on waypoint connections, cornering behavior, route
-          selection, and whether a path reaches the correct destination.
-          These details help make navigation more predictable and reliable.
-        </p>
-      </article>
-
-      <article class="panel">
-        <div class="number">03 / GAMEPLAY</div>
-        <h2>Driving &amp; Vehicle Selection</h2>
-
-        <p>
-          Vehicle selection connects the garage interface to the active driving
-          scene. The selected vehicle needs to carry through from the menu into
-          gameplay so the player uses the vehicle they chose.
-        </p>
-
-        <p>
-          Testing this workflow helps identify mismatches between the garage,
-          vehicle selection data, and the vehicle that appears when gameplay
-          begins.
-        </p>
-
-        <img
-          class="image"
-          src="images/gameplay.png.png"
-          alt="Dash N Dine gameplay screenshot"
-          loading="lazy"
-        >
-      </article>
-
-      <article class="panel">
-        <div class="number">04 / DEBUGGING</div>
-        <h2>Testing &amp; Troubleshooting</h2>
-
-        <p>
-          Development involves investigating unexpected behavior, inspecting
-          scene and script logic, and testing exported builds. A feature that
-          works in the editor may still need additional testing when deployed
-          to a web browser.
-        </p>
-
-        <p>
-          The debugging process is iterative: reproduce an issue, examine the
-          relevant code or project settings, make a targeted change, and test
-          again. Browser compatibility and memory usage are also considerations
-          for a web export.
-        </p>
-
-        <img
-          class="image"
-          src="images/code.png.png"
-          alt="Code used during Dash N Dine development"
-          loading="lazy"
-        >
-      </article>
-
+      <footer class="footer">
+        <span><strong>Dash N Dine</strong> · Independent game project</span>
+        <span>Built with Godot · Work in progress</span>
+      </footer>
     </div>
-
-    <section class="panel">
-      <div class="eyebrow">Development principles</div>
-      <h2>Build, Test, Improve</h2>
-
-      <p>
-        <span class="pill">Godot Engine</span>
-        <span class="pill">GDScript</span>
-        <span class="pill">Scene organization</span>
-        <span class="pill">Waypoint navigation</span>
-        <span class="pill">Debugging</span>
-        <span class="pill">Iterative testing</span>
-        <span class="pill">Web export</span>
-      </p>
-
-      <p>
-        Instead of treating the game as one large system, development is
-        approached as a series of smaller tasks: build a feature, connect it
-        to the rest of the project, test the result, and refine it when
-        problems appear. This approach makes issues easier to isolate and
-        helps each improvement contribute to the overall experience.
-      </p>
-
-      <div class="note">
-        Development is ongoing. This page highlights the engineering work,
-        systems, and challenges involved in the project without suggesting
-        that every feature or technical issue is fully finished.
-      </div>
-    </section>
-
-    <footer>
-      Dash N Dine &middot; Engineering &amp; Development
-    </footer>
-
   </main>
 </body>
 </html>
-```
