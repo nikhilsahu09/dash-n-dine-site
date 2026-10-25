@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +8,13 @@
 
   <style>
     :root {
-      --bg: #0b1020;
-      --panel: #131b2e;
+      --bg: #090e1b;
+      --panel: #111a2b;
+      --panel-light: #172238;
       --text: #f4f7ff;
       --muted: #a5b1c8;
       --accent: #75e0b0;
-      --line: #29344a;
+      --line: #29364d;
     }
 
     * { box-sizing: border-box; }
@@ -32,7 +32,7 @@
     a { color: var(--accent); }
 
     .container {
-      width: min(1080px, 90%);
+      width: min(1120px, 90%);
       margin: auto;
     }
 
@@ -47,15 +47,16 @@
 
     .brand {
       color: var(--text);
-      font-weight: 800;
+      font-weight: 900;
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 18px;
+      gap: 22px;
     }
 
     .nav-links a {
@@ -64,9 +65,14 @@
       font-size: 14px;
     }
 
+    .nav-links a:hover { color: var(--accent); }
+
     .hero {
-      padding: 100px 0 85px;
-      max-width: 780px;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      align-items: center;
+      gap: 45px;
+      padding: 76px 0 82px;
     }
 
     .eyebrow {
@@ -78,60 +84,104 @@
     }
 
     h1 {
-      font-size: clamp(46px, 8vw, 78px);
-      line-height: 1.05;
+      font-size: clamp(46px, 6vw, 76px);
+      line-height: 1.02;
       letter-spacing: -3px;
       margin: 18px 0;
     }
 
     h2 {
-      font-size: clamp(27px, 4vw, 38px);
+      font-size: clamp(28px, 4vw, 40px);
       line-height: 1.2;
-      margin-top: 0;
+      letter-spacing: -1px;
+      margin: 10px 0 16px;
     }
 
-    h3 { margin-bottom: 8px; }
+    h3 { margin: 0 0 8px; }
 
     p { color: var(--muted); }
 
-    .hero p {
-      font-size: 18px;
-      max-width: 650px;
+    .hero-copy > p {
+      font-size: 17px;
+      max-width: 510px;
+    }
+
+    .hero-image {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 8px;
+      background: var(--panel);
+      box-shadow: 0 25px 80px #00000040;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 11px;
+    }
+
+    .image-caption {
+      padding: 9px 10px 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tags {
+      margin-top: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      border: 1px solid #345747;
+      background: #75e0b00b;
+      border-radius: 20px;
+      padding: 4px 11px;
+      font-size: 12px;
+      margin: 3px 4px 3px 0;
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 26px;
     }
 
     .button {
       display: inline-block;
-      padding: 12px 19px;
+      padding: 12px 18px;
       border: 1px solid var(--line);
       border-radius: 8px;
       color: var(--text);
       text-decoration: none;
       font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.2s, background 0.2s;
     }
+
+    .button:hover { transform: translateY(-2px); }
 
     .button.primary {
       background: var(--accent);
-      color: #0b1020;
+      color: #09121b;
       border-color: var(--accent);
     }
 
     section {
-      padding: 70px 0;
+      padding: 72px 0;
       border-top: 1px solid var(--line);
       scroll-margin-top: 20px;
     }
 
     .section-intro {
-      max-width: 680px;
-      margin-bottom: 28px;
+      max-width: 700px;
+      margin-bottom: 30px;
     }
+
+    .section-intro p { max-width: 650px; }
 
     .grid {
       display: grid;
@@ -143,37 +193,88 @@
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 24px;
+      padding: 25px;
+      min-width: 0;
     }
 
-    .tag {
-      display: inline-block;
+    .card p:last-child { margin-bottom: 0; }
+
+    .visual-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .visual-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--panel-light);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .visual-card .card-content { padding: 22px; }
+
+    .number {
       color: var(--accent);
-      border: 1px solid #345747;
-      border-radius: 20px;
-      padding: 3px 10px;
       font-size: 12px;
-      margin: 3px 4px 3px 0;
+      letter-spacing: 1px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .feedback-note {
+      border: 1px solid var(--line);
       border-left: 3px solid var(--accent);
-      padding: 12px 18px;
+      padding: 22px;
       background: var(--panel);
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 10px 10px 0;
     }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .project-link:hover { text-decoration: underline; }
 
     footer {
       padding: 30px 0;
       color: var(--muted);
       font-size: 13px;
+      border-top: 1px solid var(--line);
     }
 
-    @media (max-width: 650px) {
+    footer p { margin: 0; }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 55px 0;
+      }
+
+      .hero-copy > p { max-width: 650px; }
+    }
+
+    @media (max-width: 600px) {
       .grid { grid-template-columns: 1fr; }
-      .hero { padding: 65px 0; }
-      nav { align-items: flex-start; flex-direction: column; }
-      h1 { letter-spacing: -2px; }
+
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links { gap: 12px 18px; }
+
+      h1 {
+        font-size: 49px;
+        letter-spacing: -2px;
+      }
+
+      section { padding: 52px 0; }
     }
   </style>
 </head>
@@ -182,6 +283,7 @@
   <div class="container">
     <nav>
       <a class="brand" href="#">DASH N DINE</a>
+
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#engineering">Engineering</a>
@@ -191,21 +293,42 @@
     </nav>
 
     <header class="hero">
-      <div class="eyebrow">Independent Game Development</div>
-      <h1>Dash N Dine.</h1>
-      <p>
-        Designing and developing a 3D driving game with Godot,
-        combining city-building, road networks, and waypoint-based
-        navigation into an interactive experience.
-      </p>
-      <div>
-        <span class="tag">Godot Engine</span>
-        <span class="tag">GDScript</span>
-        <span class="tag">3D Development</span>
+      <div class="hero-copy">
+        <div class="eyebrow">Independent Game Development</div>
+
+        <h1>Dash N Dine<span style="color: var(--accent)">.</span></h1>
+
+        <p>
+          Designing and developing a 3D driving game in Godot,
+          combining city environments, interconnected road networks,
+          and waypoint-based navigation into an interactive experience.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Godot Engine</span>
+          <span class="tag">GDScript</span>
+          <span class="tag">3D Development</span>
+          <span class="tag">Navigation Systems</span>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="#engineering">
+            Explore the Development ↓
+          </a>
+          <a class="button" href="#project">
+            Project Links
+          </a>
+        </div>
       </div>
-      <div class="actions">
-        <a class="button primary" href="#project">Explore the Project ↓</a>
-        <a class="button" href="#engineering">How It Was Built</a>
+
+      <div class="hero-image">
+        <img
+          src="images/gameplay.png.png"
+          alt="Dash N Dine gameplay with the city environment and minimap"
+        >
+        <div class="image-caption">
+          DASH N DINE / IN-GAME GAMEPLAY
+        </div>
       </div>
     </header>
 
@@ -213,15 +336,18 @@
       <div class="section-intro">
         <div class="eyebrow">01 / Overview</div>
         <h2>From an idea to a playable world.</h2>
+
         <p>
           Dash N Dine is an independent game development project
-          built in Godot. The project explores how a 3D driving
-          environment can connect roads, destinations, and navigation
-          into a cohesive gameplay experience.
+          built in Godot. It explores how a 3D driving environment
+          can connect roads, destinations, and navigation into a
+          cohesive gameplay experience.
         </p>
+
         <p>
-          This portfolio documents the design decisions, technical
-          challenges, player testing, and improvements behind the game.
+          This portfolio documents the engineering decisions,
+          technical challenges, player testing, and iterative
+          improvements involved in bringing the project to life.
         </p>
       </div>
     </section>
@@ -229,45 +355,88 @@
     <section id="engineering">
       <div class="section-intro">
         <div class="eyebrow">02 / Engineering</div>
-        <h2>Building the systems behind the drive.</h2>
+        <h2>More than a city to drive through.</h2>
+
         <p>
-          The project involves more than creating a city to drive
-          through. Its systems must work together to make the world
-          navigable and the experience playable.
+          Creating the environment is only one part of the project.
+          The road network, navigation logic, and gameplay systems
+          must work together to create a functional driving world.
         </p>
       </div>
 
       <div class="grid">
         <article class="card">
+          <div class="number">SYSTEM 01</div>
           <h3>City Environment</h3>
           <p>
-            Developing a 3D urban environment with roads, sidewalks,
-            blocks, and buildings to create a connected driving world.
+            Building a 3D urban environment with roads, sidewalks,
+            blocks, and buildings to create a connected world
+            for players to explore.
           </p>
         </article>
 
         <article class="card">
+          <div class="number">SYSTEM 02</div>
           <h3>Road Network</h3>
           <p>
-            Connecting waypoints to represent road paths and help
-            the game determine routes through the environment.
+            Developing interconnected waypoints to represent
+            available paths through the city and support
+            route selection.
           </p>
         </article>
 
         <article class="card">
+          <div class="number">SYSTEM 03</div>
           <h3>Navigation</h3>
           <p>
-            Working on route selection and destination-based
-            navigation so the player can reach intended locations.
+            Working on destination-based routing so the game
+            can determine paths toward intended locations
+            instead of simply choosing nearby points.
           </p>
         </article>
 
         <article class="card">
+          <div class="number">SYSTEM 04</div>
           <h3>Debugging & Iteration</h3>
           <p>
-            Testing the game, diagnosing unexpected behavior,
-            and refining systems as development progresses.
+            Testing interconnected systems, investigating
+            unexpected behavior, and refining the implementation
+            as the project develops.
           </p>
+        </article>
+      </div>
+
+      <div class="grid" style="margin-top: 18px">
+        <article class="card visual-card">
+          <img
+            src="images/city.png.png"
+            alt="Dash N Dine city environment in the development process"
+            loading="lazy"
+          >
+          <div class="card-content">
+            <div class="number">DEVELOPMENT / 01</div>
+            <h3>Constructing the City</h3>
+            <p>
+              Designing the environment and arranging its
+              roads, buildings, and connected spaces.
+            </p>
+          </div>
+        </article>
+
+        <article class="card visual-card">
+          <img
+            src="images/code.png.png"
+            alt="Code used in the Dash N Dine project"
+            loading="lazy"
+          >
+          <div class="card-content">
+            <div class="number">DEVELOPMENT / 02</div>
+            <h3>Engineering the Systems</h3>
+            <p>
+              Using scripts and interconnected game logic
+              to bring the environment and gameplay together.
+            </p>
+          </div>
         </article>
       </div>
     </section>
@@ -276,22 +445,24 @@
       <div class="section-intro">
         <div class="eyebrow">03 / Player Research</div>
         <h2>Turning feedback into improvements.</h2>
+
         <p>
-          Player feedback provides a way to evaluate the game
-          beyond my own experience as its developer.
+          Testing with players provides another perspective on
+          the gameplay and helps identify opportunities to
+          improve the experience.
         </p>
       </div>
 
       <div class="feedback-note">
-        <strong>Player testing results</strong>
+        <h3>Player Testing & Analysis</h3>
         <p>
-          This section will present results from actual player
-          feedback, including survey findings, response counts,
-          and areas identified for improvement.
+          This section will present findings from actual player
+          feedback, including survey responses, gameplay
+          observations, and areas identified for improvement.
         </p>
         <p>
-          Charts and statistics will be added after the feedback
-          data has been organized and analyzed.
+          Visualizations and statistics will be added once the
+          feedback data has been organized and analyzed.
         </p>
       </div>
     </section>
@@ -300,23 +471,31 @@
       <div class="section-intro">
         <div class="eyebrow">04 / Explore Further</div>
         <h2>Explore the project.</h2>
+
         <p>
-          Play the game, explore its development, or inspect the
-          source code.
+          Follow the development, try the playable build,
+          or explore the game's source code.
         </p>
       </div>
 
       <div class="grid">
         <article class="card">
+          <div class="number">01 / PLAY</div>
           <h3>Game Demo</h3>
-          <p>Play Dash N Dine in your browser.</p>
-          <span>Demo link coming soon.</span>
+          <p>
+            Experience Dash N Dine through a playable browser build.
+          </p>
+          <span>Playable demo coming soon.</span>
         </article>
 
         <article class="card">
+          <div class="number">02 / CODE</div>
           <h3>Source Code</h3>
-          <p>Explore the code, project structure, and technical work.</p>
-          <span>Repository link coming soon.</span>
+          <p>
+            Explore the implementation, scripts, and technical
+            systems behind the game.
+          </p>
+          <span>Game source repository coming soon.</span>
         </article>
       </div>
     </section>
