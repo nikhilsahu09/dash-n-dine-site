@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering | Dash N Dine</title>
+  <style>
+    :root {
+      --bg:#22262e; --sidebar:#292e38; --panel:#303743;
+      --blue:#78b7ed; --blue-dark:#9acfff; --blue-soft:#354b61;
+      --text:#e6edf5; --muted:#a3afbf; --line:#414956;
+      --shadow:0 5px 20px #00000020;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,sans-serif; line-height:1.7; }
+    a { color:var(--blue-dark); }
+    .sidebar { position:fixed; inset:0 auto 0 0; width:250px; padding:30px 20px; background:var(--sidebar); border-right:1px solid var(--line); }
+    .brand { font-size:24px; font-weight:800; color:var(--blue); margin-bottom:5px; }
+    .tagline { color:var(--muted); font-size:13px; margin-bottom:32px; }
+    .nav-label { color:var(--muted); font-size:11px; font-weight:bold; letter-spacing:2px; margin:24px 12px 10px; }
+    nav a { display:block; padding:11px 13px; margin:5px 0; border-radius:9px; color:var(--muted); text-decoration:none; font-size:14px; }
+    nav a:hover, nav a.active { color:var(--blue-dark); background:var(--blue-soft); }
+    main { margin-left:250px; padding:38px; max-width:1400px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:15px; padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:35px; }
+    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:bold; }
+    h1 { font-size:clamp(32px,5vw,48px); line-height:1.15; margin:8px 0 14px; }
+    h2 { font-size:23px; margin-top:0; }
+    h3 { font-size:17px; }
+    p { color:var(--muted); }
+    .intro { max-width:800px; font-size:17px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin:25px 0; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:15px; padding:24px; box-shadow:var(--shadow); }
+    .number { color:var(--blue); font-weight:bold; font-size:13px; letter-spacing:1px; }
+    .pill { display:inline-block; padding:5px 10px; border-radius:20px; background:var(--blue-soft); color:var(--blue-dark); font-size:12px; margin:3px; }
+    .image { width:100%; display:block; border-radius:12px; border:1px solid var(--line); margin-top:15px; }
+    .note { border-left:3px solid var(--blue); padding:12px 16px; background:#78b7ed10; border-radius:0 9px 9px 0; }
+    footer { color:var(--muted); border-top:1px solid var(--line); margin-top:40px; padding-top:20px; font-size:13px; }
+    @media(max-width:900px) { .sidebar { width:215px; } main { margin-left:215px; padding:25px; } .grid { grid-template-columns:1fr; } }
+    @media(max-width:700px) { .sidebar { position:sticky; width:100%; height:auto; padding:14px; z-index:5; } .brand { font-size:20px; } .tagline,.nav-label { display:none; } nav { display:flex; overflow-x:auto; gap:5px; } nav a { white-space:nowrap; padding:8px 10px; margin:5px 0 0; font-size:12px; } main { margin-left:0; padding:22px 16px; } .topbar { margin-bottom:25px; } }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">Dash N Dine</div>
+    <div class="tagline">A city-driving delivery game</div>
+    <div class="nav-label">PROJECT MENU</div>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="about.html">About the Project</a>
+      <a class="active" href="engineering.html" aria-current="page">Engineering</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="feedback.html">Player Feedback</a>
+      <a href="links.html">Project Links</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Behind the build</div>
+        <h1>Engineering & Development</h1>
+        <p>How Dash N Dine is being built, tested, and improved.</p>
+      </div>
+      <span class="pill">Godot Engine</span>
+    </header>
+
+    <section>
+      <div class="eyebrow">Technical overview</div>
+      <h2>Turning a game idea into a working system</h2>
+      <p class="intro">Dash N Dine combines a 3D city environment with driving and delivery gameplay. Development involves building the world, organizing scenes and scripts, and connecting gameplay systems so that the different parts work together.</p>
+    </section>
+
+    <div class="grid">
+      <article class="panel">
+        <div class="number">01 / ENVIRONMENT</div>
+        <h2>Building the city</h2>
+        <p>The city is assembled from roads, sidewalks, buildings, and supporting scene objects. The goal is to create a world that feels organized and gives the player room to navigate.</p>
+        <img class="image" src="images/city.png.png" alt="City environment in Dash N Dine">
+      </article>
+
+      <article class="panel">
+        <div class="number">02 / NAVIGATION</div>
+        <h2>Roads & waypoints</h2>
+        <p>Waypoints help represent possible paths through the road network. Connecting them correctly is important for route planning and helping the player reach the intended destination instead of simply heading toward the nearest point.</p>
+        <p>Testing focuses on how paths connect, whether turns are handled correctly, and whether the chosen route reaches the intended location.</p>
+      </article>
+
+      <article class="panel">
+        <div class="number">03 / GAMEPLAY</div>
+        <h2>Driving & vehicle selection</h2>
+        <p>The game includes a vehicle-selection workflow and a driving experience. A key development task is ensuring the selected vehicle is the one that actually appears when gameplay begins.</p>
+        <p>Gameplay testing helps catch mismatches between menus, selected vehicles, and the active game scene.</p>
+        <img class="image" src="images/gameplay.png.png" alt="Dash N Dine gameplay screenshot">
+      </article>
+
+      <article class="panel">
+        <div class="number">04 / DEBUGGING</div>
+        <h2>Testing & troubleshooting</h2>
+        <p>Development includes investigating issues, checking scene behavior, and testing exported builds. Web deployment also requires checking compatibility and performance in browsers.</p>
+        <p>When something breaks, the process is to reproduce the issue, inspect the relevant code or project settings, make a targeted change, and test again.</p>
+        <img class="image" src="images/code.png.png" alt="Code used in Dash N Dine development">
+      </article>
+    </div>
+
+    <section class="panel">
+      <div class="eyebrow">Development principles</div>
+      <h2>Build, test, improve</h2>
+      <p><span class="pill">Modular scenes</span><span class="pill">GDScript</span><span class="pill">Debugging</span><span class="pill">Iterative testing</span></p>
+      <p>Rather than treating the game as one large system, development is approached as a series of smaller tasks: build a feature, connect it to the rest of the project, test the result, and refine it when problems appear.</p>
+      <div class="note">This page describes the development areas and challenges involved in the project. It does not claim that every feature or technical issue is fully finished.</div>
+    </section>
+
+    <footer>Dash N Dine · Engineering & Development</footer>
+  </main>
+</body>
+</html>
