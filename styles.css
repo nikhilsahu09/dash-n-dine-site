@@ -745,3 +745,12 @@ textarea {
     animation: none !important;
   }
 }
+
+.creator-credit {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
