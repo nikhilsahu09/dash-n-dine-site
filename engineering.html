@@ -1,21 +1,21 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#22262e">
-  <meta name="description" content="Technical details about the city environment, waypoint routing, vehicle selection, debugging, and web export of Dash N Dine.">
-  <title>Engineering | Dash N Dine</title>
+  <meta name="description" content="Explore the engineering behind Dine N Dash, including its 3D city environment, waypoint routing, vehicle selection, debugging, and web export testing.">
+  <title>Engineering | Dine N Dash</title>
   <link rel="stylesheet" href="styles.css">
-  
 </head>
 <body>
   <aside class="sidebar">
-    <a class="brand" href="index.html" aria-label="Dash N Dine home">
+    <a class="brand" href="index.html" aria-label="Dine N Dash home">
       <span class="brand-icon" aria-hidden="true">D</span>
       <span>
-        <span class="brand-name">DASH N DINE</span>
-        <span class="brand-subtitle">PROJECT HUB</span>
+        <span class="brand-name">DINE N DASH</span>
+        <span class="brand-subtitle">GAME PROJECT</span>
       </span>
     </a>
     <div class="tagline">A city-driving delivery game</div>
@@ -38,65 +38,77 @@
     <div class="content">
       <header class="topbar">
         <div class="breadcrumb">Workspace / <strong>Engineering</strong></div>
-        <div class="status"><span class="status-dot"></span>In Development</div>
+        <div class="status"><span class="status-dot"></span>Technical Overview</div>
       </header>
 
       <section class="hero">
         <div class="eyebrow">Behind the build</div>
         <h1>Engineering<span style="color:var(--blue)">.</span></h1>
-        <p class="lead">The work behind Dash N Dine goes beyond placing roads and buildings. The city, waypoint network, vehicle selection, and exported game all have to work together.</p>
+        <p class="lead">Dine N Dash combines 3D environment design, waypoint-based navigation, vehicle selection, and gameplay systems. Each component must work together to create a cohesive driving and delivery experience.</p>
       </section>
-
 
       <section class="section">
         <div class="eyebrow">Technical overview</div>
-        <h2>Making the pieces work together</h2>
-        <p class="lead">The main engineering challenge is coordination: the city layout, waypoint network, vehicle selection, and exported build all have to behave as expected. Here are the systems I'm working on and the problems that come with them.</p>
+        <h2>Connecting the systems</h2>
+        <p class="lead">The engineering behind Dine N Dash involves more than building a city. Its environment, navigation logic, vehicle selection, and exported builds each introduce different design and testing challenges.</p>
+
         <div class="grid">
           <article class="panel">
             <div class="card-number">01 / ENVIRONMENT</div>
             <h3>Building the city</h3>
-            <p>The environment is assembled from roads, sidewalks, buildings, and scene objects. Keeping the layout organized makes it easier to expand the city and test how the driving systems interact with it.</p>
-            <img class="media" src="images/city.png.png" alt="City environment from Dash N Dine" loading="lazy">
-            <p class="media-caption">City environment · current project image</p>
+            <p>The 3D environment is assembled from roads, sidewalks, buildings, and scene objects. Organizing these elements into a consistent layout supports navigation, expands the playable environment, and provides the foundation for driving gameplay.</p>
+            <img class="media" src="images/city.png.png" alt="City environment from Dine N Dash" loading="lazy">
+            <p class="media-caption">City environment · 3D scene design</p>
           </article>
+
           <article class="panel">
             <div class="card-number">02 / NAVIGATION</div>
             <h3>Waypoints and route selection</h3>
-            <p>Waypoints need meaningful connections. Picking the nearest marker isn't enough if it sends a vehicle toward the wrong street or cuts a corner. The route logic must account for the road network and the destination being requested.</p>
-            <p>Testing focuses on connections, turns, route choice, and whether the selected path actually reaches the intended location.</p>
+            <p>The waypoint network represents connections between locations in the city. Effective routing requires more than selecting the nearest marker: connections must follow the road layout and guide the vehicle toward the correct destination.</p>
+            <p>Route testing examines waypoint connectivity, turn selection, path efficiency, and whether a chosen route reaches its intended destination.</p>
           </article>
+
           <article class="panel">
-            <div class="card-number">03 / GAMEPLAY FLOW</div>
+            <div class="card-number">03 / GAMEPLAY SYSTEMS</div>
             <h3>Garage to driving scene</h3>
-            <p>The vehicle chosen in the garage needs to be the vehicle that appears in gameplay. That means checking how selection data is stored, passed between scenes, and used when the driving scene starts.</p>
-            <img class="media" src="images/gameplay.png.png" alt="Dash N Dine gameplay view" loading="lazy">
-            <p class="media-caption">Gameplay · current project image</p>
+            <p>Vehicle selection connects the garage interface to the driving experience. The selected vehicle must be identified, passed between scenes, and instantiated correctly when gameplay begins.</p>
+            <p>This involves coordinating scene transitions, selection data, and vehicle setup so that the garage choice determines which vehicle enters the driving scene.</p>
+            <img class="media" src="images/gameplay.png.png" alt="Dine N Dash gameplay view" loading="lazy">
+            <p class="media-caption">Gameplay · vehicle and scene integration</p>
           </article>
+
           <article class="panel">
             <div class="card-number">04 / EXPORT & DEBUGGING</div>
             <h3>Editor versus browser</h3>
-            <p>A game that runs in the editor can still fail after export. The current web build has a memory-related issue, so the browser version needs further troubleshooting before it can be presented as playable.</p>
-            <p>The process is to reproduce the failure, check the relevant project settings and logs, change one thing at a time, and retest the exported build.</p>
-            <img class="media" src="images/code.png.png" alt="Code used while developing Dash N Dine" loading="lazy">
-            <p class="media-caption">Development code · current project image</p>
+            <p>Running a project in the Godot editor does not guarantee that every exported build will behave the same way. Dine N Dash has encountered a memory-related error during browser testing, highlighting the differences between the desktop environment and web deployment.</p>
+            <p>Debugging involves reproducing the issue, reviewing project settings and error logs, isolating potential causes, and testing changes to identify a reliable solution.</p>
+            <img class="media" src="images/code.png.png" alt="Code used in the Dine N Dash project" loading="lazy">
+            <p class="media-caption">GDScript · debugging and export testing</p>
           </article>
         </div>
       </section>
+
       <section class="section panel">
-        <div class="eyebrow">How I work</div>
+        <div class="eyebrow">Engineering approach</div>
         <h2>Test the system, not just the scene</h2>
-        <p>When a feature breaks, I try to narrow the issue down: confirm what should happen, reproduce what actually happens, inspect the relevant script or scene setup, make a targeted change, and test again. That matters especially when multiple systems depend on each other.</p>
-        <p style="margin-top:12px"><span class="pill">Godot</span><span class="pill">GDScript</span><span class="pill">Scene organization</span><span class="pill">Waypoint routing</span><span class="pill">Export testing</span></p>
-        <div class="note">The browser export is not yet reliable. The site reflects that status instead of linking visitors to a build that may not run.</div>
+        <p>My approach to debugging is to define the expected behavior, reproduce the issue, inspect the relevant scripts and scene configuration, make a targeted change, and test the result. This process is especially important when multiple gameplay systems depend on one another.</p>
+        <p style="margin-top:12px">
+          <span class="pill">Godot Engine</span>
+          <span class="pill">GDScript</span>
+          <span class="pill">3D Scene Design</span>
+          <span class="pill">Waypoint Routing</span>
+          <span class="pill">Debugging</span>
+          <span class="pill">Web Export Testing</span>
+        </p>
+        <div class="note">The browser build is not currently available as a reliable playable version. Web export testing remains part of the project's technical work.</div>
       </section>
 
-
       <footer class="footer">
-        <span><strong>Dash N Dine</strong> · Independent game project</span>
-        <span>Built with Godot · Work in progress</span>
+        <span><strong>Dine N Dash</strong> · Independent game project</span>
+        <span>Built with Godot Engine</span>
       </footer>
     </div>
   </main>
 </body>
 </html>
+```
