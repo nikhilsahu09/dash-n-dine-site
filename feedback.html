@@ -3,13 +3,593 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#22262e">
-  <meta name="description" content="Share ideas and bug reports for Dash N Dine. The current form is a preview and does not submit or store responses.">
   <title>Player Feedback | Dash N Dine</title>
   <link rel="stylesheet" href="styles.css">
-  <script defer src="feedback.js"></script>
+
+  <style>
+    :root {
+      --fb-bg: #22262e;
+      --fb-panel: #303743;
+      --fb-panel-light: #353d49;
+      --fb-blue: #78b7ed;
+      --fb-blue-light: #a6d4ff;
+      --fb-text: #e6edf5;
+      --fb-muted: #a3afbf;
+      --fb-line: #414956;
+      --fb-green: #83d6b0;
+    }
+
+    .feedback-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 34px;
+      color: var(--fb-text);
+    }
+
+    .feedback-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-bottom: 30px;
+    }
+
+    .feedback-eyebrow {
+      color: var(--fb-blue);
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .feedback-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -1.3px;
+      line-height: 1.12;
+      margin: 0 0 12px;
+    }
+
+    .feedback-header p {
+      max-width: 650px;
+      color: var(--fb-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .feedback-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feedback-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--fb-line);
+      background: var(--fb-panel);
+      padding: 11px 14px;
+      border-radius: 12px;
+      color: var(--fb-muted);
+      font-size: 0.85rem;
+    }
+
+    .feedback-status-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background: var(--fb-blue);
+      box-shadow: 0 0 10px #78b7ed55;
+    }
+
+    .feedback-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--fb-blue);
+      color: #172431;
+      text-decoration: none;
+      padding: 12px 17px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .feedback-button:hover {
+      background: var(--fb-blue-light);
+      transform: translateY(-2px);
+    }
+
+    .preview-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      background: #2d3947;
+      border: 1px solid #4b6177;
+      padding: 17px 19px;
+      border-radius: 13px;
+      margin-bottom: 26px;
+    }
+
+    .preview-notice-icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #41566c;
+      color: var(--fb-blue-light);
+      font-weight: 900;
+    }
+
+    .preview-notice strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.92rem;
+    }
+
+    .preview-notice p {
+      margin: 0;
+      color: var(--fb-muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 32px 0 17px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.2rem;
+      margin: 0 0 5px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-heading p {
+      color: var(--fb-muted);
+      margin: 0;
+      font-size: 0.86rem;
+    }
+
+    .section-kicker {
+      color: var(--fb-muted);
+      font-size: 0.77rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--fb-panel);
+      border: 1px solid var(--fb-line);
+      border-radius: 16px;
+      padding: 21px;
+      min-width: 0;
+      box-shadow: 0 8px 22px #0000000c;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: #627b96;
+    }
+
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--fb-muted);
+      line-height: 1.4;
+    }
+
+    .stat-icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 35px;
+      height: 35px;
+      border-radius: 11px;
+      background: var(--fb-blue-soft, #354b61);
+      color: var(--fb-blue-light);
+      font-weight: 800;
+    }
+
+    .stat-value {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .stat-description {
+      color: var(--fb-muted);
+      font-size: 0.79rem;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .mini-track {
+      width: 100%;
+      height: 6px;
+      border-radius: 99px;
+      background: #20252d;
+      overflow: hidden;
+      margin-top: 17px;
+    }
+
+    .mini-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #5b9ed7, #9bcfff);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .dashboard-card {
+      background: var(--fb-panel);
+      border: 1px solid var(--fb-line);
+      border-radius: 16px;
+      padding: 24px;
+      min-width: 0;
+    }
+
+    .dashboard-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-card-header h3 {
+      font-size: 1.02rem;
+      margin: 0 0 6px;
+    }
+
+    .dashboard-card-header p {
+      color: var(--fb-muted);
+      font-size: 0.82rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .chart-tag {
+      white-space: nowrap;
+      border: 1px solid var(--fb-line);
+      color: var(--fb-muted);
+      padding: 6px 9px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+    }
+
+    .rating-list,
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 21px;
+    }
+
+    .rating-row,
+    .bar-row {
+      min-width: 0;
+    }
+
+    .rating-row-top,
+    .bar-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 9px;
+      font-size: 0.86rem;
+    }
+
+    .rating-name,
+    .bar-name {
+      color: var(--fb-text);
+      overflow-wrap: anywhere;
+    }
+
+    .rating-score {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .rating-score span {
+      color: var(--fb-muted);
+      font-weight: 500;
+    }
+
+    .rating-track,
+    .bar-track {
+      height: 9px;
+      width: 100%;
+      background: #222730;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .rating-fill,
+    .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #548fc3, #91c8f7);
+    }
+
+    .bar-fill.secondary {
+      background: linear-gradient(90deg, #587d9e, #8cb7d9);
+    }
+
+    .bar-count {
+      font-weight: 800;
+      white-space: nowrap;
+      color: var(--fb-blue-light);
+    }
+
+    .dashboard-insight {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-top: 24px;
+      padding: 14px;
+      background: #283847;
+      border: 1px solid #3e566b;
+      border-radius: 11px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #d0e3f5;
+    }
+
+    .insight-mark {
+      color: var(--fb-blue-light);
+      font-weight: 900;
+    }
+
+    .feedback-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .retention-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .retention-main {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin: 10px 0 24px;
+    }
+
+    .retention-ring {
+      --retention: 87%;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--fb-blue) var(--retention), #20252d 0);
+      position: relative;
+    }
+
+    .retention-ring::before {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border-radius: 50%;
+      background: var(--fb-panel);
+    }
+
+    .retention-ring-inner {
+      position: relative;
+      text-align: center;
+    }
+
+    .retention-ring-inner strong {
+      display: block;
+      font-size: 1.9rem;
+      letter-spacing: -1px;
+    }
+
+    .retention-ring-inner span {
+      color: var(--fb-muted);
+      font-size: 0.72rem;
+    }
+
+    .retention-copy {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .retention-copy h4 {
+      font-size: 1rem;
+      margin: 0 0 8px;
+    }
+
+    .retention-copy p {
+      color: var(--fb-muted);
+      font-size: 0.84rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .retention-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: var(--fb-muted);
+      font-size: 0.8rem;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background: var(--fb-blue);
+    }
+
+    .legend-dot.muted {
+      background: #58616d;
+    }
+
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .next-step {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 31px;
+      height: 31px;
+      border-radius: 9px;
+      background: #354b61;
+      color: var(--fb-blue-light);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .next-step h4 {
+      font-size: 0.87rem;
+      margin: 1px 0 5px;
+    }
+
+    .next-step p {
+      font-size: 0.8rem;
+      color: var(--fb-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .feedback-footer {
+      border-top: 1px solid var(--fb-line);
+      margin-top: 32px;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--fb-muted);
+      font-size: 0.78rem;
+    }
+
+    .feedback-footer strong {
+      color: var(--fb-text);
+    }
+
+    @media (max-width: 1150px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .feedback-page {
+        padding: 24px;
+      }
+
+      .dashboard-grid,
+      .feedback-bottom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .feedback-page {
+        padding: 18px 14px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+      }
+
+      .stat-top {
+        margin-bottom: 15px;
+      }
+
+      .dashboard-card {
+        padding: 17px;
+      }
+
+      .dashboard-card-header {
+        flex-direction: column;
+        margin-bottom: 22px;
+      }
+
+      .feedback-header-actions {
+        width: 100%;
+      }
+
+      .feedback-button {
+        flex: 1;
+      }
+
+      .retention-ring {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Keep this sidebar consistent with the rest of the website. -->
   <aside class="sidebar">
     <a class="brand" href="index.html" aria-label="Dash N Dine home">
       <span class="brand-icon" aria-hidden="true">D</span>
@@ -18,8 +598,10 @@
         <span class="brand-subtitle">PROJECT HUB</span>
       </span>
     </a>
+
     <div class="tagline">A city-driving delivery game</div>
     <div class="nav-label">WORKSPACE</div>
+
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index.html"><span class="nav-icon" aria-hidden="true">▦</span>Overview</a>
       <a href="about.html"><span class="nav-icon" aria-hidden="true">◉</span>About the Project</a>
@@ -28,75 +610,380 @@
       <a href="feedback.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">▤</span>Player Feedback</a>
       <a href="links.html"><span class="nav-icon" aria-hidden="true">↗</span>Project Links</a>
     </nav>
+
     <div class="sidebar-bottom">
       <strong>Independent Game Development</strong>
       Built with Godot Engine
     </div>
   </aside>
 
-  <main>
-    <div class="content">
-      <header class="topbar">
-        <div class="breadcrumb">Workspace / <strong>Player Feedback</strong></div>
-        <div class="status"><span class="status-dot"></span>In Development</div>
+  <main class="main-content">
+    <div class="feedback-page">
+
+      <header class="feedback-header">
+        <div>
+          <div class="feedback-eyebrow">PLAYTEST ANALYTICS</div>
+          <h1>Player Feedback</h1>
+          <p>
+            A closer look at player experience, driving mechanics, delivery
+            gameplay, and opportunities to improve Dash N Dine.
+          </p>
+        </div>
+
+        <div class="feedback-header-actions">
+          <span class="feedback-status">
+            <span class="feedback-status-dot"></span>
+            Dashboard preview
+          </span>
+
+          <a
+            class="feedback-button"
+            href="https://forms.gle/9zAEHXqs281N4koB6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Give Feedback ↗
+          </a>
+        </div>
       </header>
 
-      <section class="hero">
-        <div class="eyebrow">Help improve the next build</div>
-        <h1>Player Feedback<span style="color:var(--blue)">.</span></h1>
-        <p class="lead">I’m still developing Dash N Dine, and specific feedback can help me decide what to fix or build next. The form below is a preview only and doesn't send anything yet.</p>
-      </section>
-
-
-      <section class="section">
-        <div class="grid">
-          <section class="panel">
-            <div class="eyebrow">What would help most</div>
-            <h2>Tell me what works—and what doesn't</h2>
-            <p>Feedback is most useful when it's specific. If you've tried the game in Godot or reviewed the screenshots, comments on controls, navigation, the city layout, or confusing behavior can help prioritize the next round of work.</p>
-            <ul style="margin-top:14px">
-              <li>What felt clear or confusing?</li>
-              <li>Did a route or waypoint seem wrong?</li>
-              <li>Did the garage select the vehicle you expected?</li>
-              <li>What would you improve first?</li>
-            </ul>
-            <div class="note">If you're reporting a bug, include what you tried, what you expected, and what happened instead. The more specific the report, the easier it is to investigate.</div>
-          </section>
-          <section class="panel">
-            <div class="eyebrow">Feedback draft</div>
-            <h2>Write a note</h2>
-            <p>This form is a local preview only. It does not send, store, or submit feedback anywhere yet.</p>
-            <form id="feedback-form">
-              <div class="field">
-                <label for="type">Feedback type</label>
-                <select id="type" name="type">
-                  <option>General feedback</option>
-                  <option>Bug report</option>
-                  <option>Gameplay suggestion</option>
-                  <option>City or navigation</option>
-                  <option>Vehicle selection</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="subject">Short summary</label>
-                <input id="subject" name="subject" type="text" maxlength="120" placeholder="e.g. Route turns too early" required>
-              </div>
-              <div class="field">
-                <label for="details">Details</label>
-                <textarea id="details" name="details" maxlength="3000" placeholder="What happened? What did you expect to happen?" required></textarea>
-              </div>
-              <button class="button button-primary" type="submit">Preview feedback</button>
-              <div class="form-notice" id="form-notice" role="status" aria-live="polite" hidden></div>
-            </form>
-          </section>
+      <section class="preview-notice" aria-label="Dashboard data status">
+        <div class="preview-notice-icon">i</div>
+        <div>
+          <strong>Playtest Dashboard Preview</strong>
+          <p>
+            These example metrics demonstrate how playtest results will be
+            presented. Replace them with the collected Google Forms responses
+            when your playtest data is ready.
+          </p>
         </div>
       </section>
 
+      <section aria-labelledby="overview-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="overview-heading">At a glance</h2>
+            <p>Key indicators for the player experience.</p>
+          </div>
+          <span class="section-kicker">Overview</span>
+        </div>
 
-      <footer class="footer">
-        <span><strong>Dash N Dine</strong> · Independent game project</span>
-        <span>Built with Godot · Work in progress</span>
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Example responses</span>
+              <span class="stat-icon">#</span>
+            </div>
+            <div class="stat-value">30</div>
+            <div class="stat-description">Sample dashboard size</div>
+            <div class="mini-track">
+              <div class="mini-fill" style="width: 100%"></div>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Game enjoyment</span>
+              <span class="stat-icon">★</span>
+            </div>
+            <div class="stat-value">8.6<span style="font-size:1rem;color:var(--fb-muted)">/10</span></div>
+            <div class="stat-description">Illustrative average rating</div>
+            <div class="mini-track">
+              <div class="mini-fill" style="width: 86%"></div>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Would play again</span>
+              <span class="stat-icon">↻</span>
+            </div>
+            <div class="stat-value">87%</div>
+            <div class="stat-description">26 of 30 in the example dataset</div>
+            <div class="mini-track">
+              <div class="mini-fill" style="width: 87%"></div>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Controls rating</span>
+              <span class="stat-icon">⌘</span>
+            </div>
+            <div class="stat-value">4.3<span style="font-size:1rem;color:var(--fb-muted)">/5</span></div>
+            <div class="stat-description">Illustrative average rating</div>
+            <div class="mini-track">
+              <div class="mini-fill" style="width: 86%"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="ratings-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="ratings-heading">Experience ratings</h2>
+            <p>Example averages on the survey's rating scales.</p>
+          </div>
+          <span class="section-kicker">Player experience</span>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <div class="dashboard-card-header">
+              <div>
+                <h3>Gameplay experience</h3>
+                <p>How players rate the main parts of the game.</p>
+              </div>
+              <span class="chart-tag">Out of 5</span>
+            </div>
+
+            <div class="rating-list">
+              <div class="rating-row">
+                <div class="rating-row-top">
+                  <span class="rating-name">Objective clarity</span>
+                  <span class="rating-score">4.5 <span>/ 5</span></span>
+                </div>
+                <div class="rating-track"><div class="rating-fill" style="width:90%"></div></div>
+              </div>
+
+              <div class="rating-row">
+                <div class="rating-row-top">
+                  <span class="rating-name">Driving &amp; controls</span>
+                  <span class="rating-score">4.3 <span>/ 5</span></span>
+                </div>
+                <div class="rating-track"><div class="rating-fill" style="width:86%"></div></div>
+              </div>
+
+              <div class="rating-row">
+                <div class="rating-row-top">
+                  <span class="rating-name">Delivery system</span>
+                  <span class="rating-score">4.2 <span>/ 5</span></span>
+                </div>
+                <div class="rating-track"><div class="rating-fill" style="width:84%"></div></div>
+              </div>
+            </div>
+
+            <div class="dashboard-insight">
+              <span class="insight-mark">↗</span>
+              <span>In this example, objective clarity receives the highest rating of the three gameplay categories.</span>
+            </div>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="dashboard-card-header">
+              <div>
+                <h3>Feature popularity</h3>
+                <p>Example distribution of favorite features.</p>
+              </div>
+              <span class="chart-tag">30 sample votes</span>
+            </div>
+
+            <div class="bar-list">
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Driving</span>
+                  <span class="bar-count">12</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Different vehicles</span>
+                  <span class="bar-count">7</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:58.3%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Deliveries</span>
+                  <span class="bar-count">5</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:41.7%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Garage &amp; customization</span>
+                  <span class="bar-count">3</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:25%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Vehicle upgrades</span>
+                  <span class="bar-count">2</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:16.7%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Weather &amp; day/night</span>
+                  <span class="bar-count">1</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:8.3%"></div></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="improvements-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="improvements-heading">Improvement priorities</h2>
+            <p>Example breakdown of areas players could want improved.</p>
+          </div>
+          <span class="section-kicker">Development insights</span>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <div class="dashboard-card-header">
+              <div>
+                <h3>Areas to improve</h3>
+                <p>Example responses to the improvement question.</p>
+              </div>
+              <span class="chart-tag">30 sample votes</span>
+            </div>
+
+            <div class="bar-list">
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Driving &amp; controls</span>
+                  <span class="bar-count">10</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:100%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Deliveries</span>
+                  <span class="bar-count">7</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:70%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Map &amp; city</span>
+                  <span class="bar-count">5</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:50%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Vehicles</span>
+                  <span class="bar-count">3</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:30%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">UI &amp; menus</span>
+                  <span class="bar-count">3</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:30%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-row-top">
+                  <span class="bar-name">Other</span>
+                  <span class="bar-count">2</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill secondary" style="width:20%"></div></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dashboard-card retention-card">
+            <div class="dashboard-card-header">
+              <div>
+                <h3>Replay interest</h3>
+                <p>Example response to “Would you play again?”</p>
+              </div>
+              <span class="chart-tag">Sample result</span>
+            </div>
+
+            <div class="retention-main">
+              <div class="retention-ring" role="img" aria-label="Illustrative replay interest of 87 percent">
+                <div class="retention-ring-inner">
+                  <strong>87%</strong>
+                  <span>Yes responses</span>
+                </div>
+              </div>
+
+              <div class="retention-copy">
+                <h4>Interest in returning</h4>
+                <p>
+                  In this example, 26 of 30 responses indicate that the player
+                  would play again. Actual results may differ.
+                </p>
+              </div>
+            </div>
+
+            <div class="retention-legend">
+              <span class="legend-item"><span class="legend-dot"></span>Would play again: 26</span>
+              <span class="legend-item"><span class="legend-dot muted"></span>Other responses: 4</span>
+            </div>
+
+            <div class="dashboard-insight">
+              <span class="insight-mark">i</span>
+              <span>When actual responses arrive, this section can help show whether players want to return to Dash N Dine.</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="development-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="development-heading">Turning feedback into updates</h2>
+            <p>How playtest feedback can guide the next development cycle.</p>
+          </div>
+          <span class="section-kicker">Next steps</span>
+        </div>
+
+        <article class="dashboard-card">
+          <div class="next-steps">
+            <div class="next-step">
+              <div class="step-number">01</div>
+              <div>
+                <h4>Review driving and controls</h4>
+                <p>Use player ratings and written comments to identify handling or navigation changes worth testing.</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="step-number">02</div>
+              <div>
+                <h4>Evaluate the delivery loop</h4>
+                <p>Look for patterns in comments about finding destinations, completing deliveries, and understanding objectives.</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="step-number">03</div>
+              <div>
+                <h4>Prioritize fixes using real responses</h4>
+                <p>Combine rating trends, reported bugs, and written feedback to decide which changes should come first.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer class="feedback-footer">
+        <span><strong>Dash N Dine</strong> · Independent game development</span>
+        <span>Player feedback &amp; playtest analytics</span>
       </footer>
+
     </div>
   </main>
 </body>
