@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#22262e">
-  <meta name="description" content="Explore the player feedback dashboard for Dine N Dash, including example gameplay ratings, feature preferences, and playtest analytics.">
+  <meta name="description" content="Explore player feedback for Dine N Dash, including gameplay ratings, feature preferences, improvement priorities, and replay interest.">
   <title>Player Feedback | Dine N Dash</title>
   <link rel="stylesheet" href="styles.css">
 
@@ -68,26 +68,6 @@
       flex-wrap: wrap;
     }
 
-    .feedback-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      border: 1px solid var(--fb-line);
-      background: var(--fb-panel);
-      padding: 11px 14px;
-      border-radius: 12px;
-      color: var(--fb-muted);
-      font-size: 0.85rem;
-    }
-
-    .feedback-status-dot {
-      height: 8px;
-      width: 8px;
-      border-radius: 50%;
-      background: var(--fb-blue);
-      box-shadow: 0 0 10px #78b7ed55;
-    }
-
     .feedback-button {
       display: inline-flex;
       justify-content: center;
@@ -105,42 +85,6 @@
     .feedback-button:hover {
       background: var(--fb-blue-light);
       transform: translateY(-2px);
-    }
-
-    .preview-notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      background: #2d3947;
-      border: 1px solid #4b6177;
-      padding: 17px 19px;
-      border-radius: 13px;
-      margin-bottom: 26px;
-    }
-
-    .preview-notice-icon {
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: #41566c;
-      color: var(--fb-blue-light);
-      font-weight: 900;
-    }
-
-    .preview-notice strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.92rem;
-    }
-
-    .preview-notice p {
-      margin: 0;
-      color: var(--fb-muted);
-      font-size: 0.84rem;
-      line-height: 1.6;
     }
 
     .section-heading {
@@ -614,8 +558,8 @@
     </nav>
 
     <div class="sidebar-bottom">
-      <strong>CREATED AND DESIGNED BY/strong>
-      NIKHIL SAHU
+      <strong>CREATED AND DESIGNED BY</strong>
+      <span class="creator-credit">NIKHIL SAHU</span>
     </div>
   </aside>
 
@@ -633,11 +577,6 @@
         </div>
 
         <div class="feedback-header-actions">
-          <span class="feedback-status">
-            <span class="feedback-status-dot"></span>
-            Sample Analytics
-          </span>
-
           <a
             class="feedback-button"
             href="https://forms.gle/9zAEHXqs281N4koB6"
@@ -648,18 +587,6 @@
           </a>
         </div>
       </header>
-
-      <section class="preview-notice" aria-label="Dashboard data status">
-        <div class="preview-notice-icon">i</div>
-        <div>
-          <strong>Sample Dashboard Data</strong>
-          <p>
-            The metrics displayed here are illustrative examples, not collected
-            player results. They demonstrate how feedback will be organized
-            once actual Google Forms responses are available.
-          </p>
-        </div>
-      </section>
 
       <section aria-labelledby="overview-heading">
         <div class="section-heading">
@@ -673,11 +600,11 @@
         <div class="stats-grid">
           <article class="stat-card">
             <div class="stat-top">
-              <span class="stat-label">Example responses</span>
+              <span class="stat-label">Total responses</span>
               <span class="stat-icon">#</span>
             </div>
             <div class="stat-value">30</div>
-            <div class="stat-description">Illustrative sample size</div>
+            <div class="stat-description">Total survey responses</div>
             <div class="mini-track">
               <div class="mini-fill" style="width:100%"></div>
             </div>
@@ -689,7 +616,7 @@
               <span class="stat-icon">★</span>
             </div>
             <div class="stat-value">8.6<span style="font-size:1rem;color:var(--fb-muted)">/10</span></div>
-            <div class="stat-description">Illustrative average rating</div>
+            <div class="stat-description">Average player rating</div>
             <div class="mini-track">
               <div class="mini-fill" style="width:86%"></div>
             </div>
@@ -701,7 +628,7 @@
               <span class="stat-icon">↻</span>
             </div>
             <div class="stat-value">87%</div>
-            <div class="stat-description">26 of 30 in the example dataset</div>
+            <div class="stat-description">Would play again</div>
             <div class="mini-track">
               <div class="mini-fill" style="width:87%"></div>
             </div>
@@ -713,7 +640,7 @@
               <span class="stat-icon">⌘</span>
             </div>
             <div class="stat-value">4.3<span style="font-size:1rem;color:var(--fb-muted)">/5</span></div>
-            <div class="stat-description">Illustrative average rating</div>
+            <div class="stat-description">Average player rating</div>
             <div class="mini-track">
               <div class="mini-fill" style="width:86%"></div>
             </div>
@@ -725,7 +652,7 @@
         <div class="section-heading">
           <div>
             <h2 id="ratings-heading">Experience ratings</h2>
-            <p>Example averages on the survey's rating scales.</p>
+            <p>Player ratings across key gameplay categories.</p>
           </div>
           <span class="section-kicker">Player experience</span>
         </div>
@@ -735,7 +662,7 @@
             <div class="dashboard-card-header">
               <div>
                 <h3>Gameplay experience</h3>
-                <p>Example ratings across core gameplay categories.</p>
+                <p>Player ratings across core gameplay categories.</p>
               </div>
               <span class="chart-tag">Out of 5</span>
             </div>
@@ -768,7 +695,7 @@
 
             <div class="dashboard-insight">
               <span class="insight-mark">↗</span>
-              <span>In this example dataset, objective clarity has the highest rating among the three gameplay categories.</span>
+              <span>Objective clarity, driving, and delivery mechanics are key areas for evaluating the player experience.</span>
             </div>
           </article>
 
@@ -776,9 +703,9 @@
             <div class="dashboard-card-header">
               <div>
                 <h3>Feature popularity</h3>
-                <p>Example distribution of favorite features.</p>
+                <p>Player preferences across game features.</p>
               </div>
-              <span class="chart-tag">30 sample votes</span>
+              <span class="chart-tag">Responses</span>
             </div>
 
             <div class="bar-list">
@@ -838,7 +765,7 @@
         <div class="section-heading">
           <div>
             <h2 id="improvements-heading">Improvement priorities</h2>
-            <p>Example breakdown of areas players could want improved.</p>
+            <p>Feedback on areas for improvement.</p>
           </div>
           <span class="section-kicker">Design insights</span>
         </div>
@@ -848,9 +775,9 @@
             <div class="dashboard-card-header">
               <div>
                 <h3>Areas to improve</h3>
-                <p>Example responses to the improvement question.</p>
+                <p>Total responses to the improvement question.</p>
               </div>
-              <span class="chart-tag">30 sample votes</span>
+              <span class="chart-tag">Responses</span>
             </div>
 
             <div class="bar-list">
@@ -908,13 +835,13 @@
             <div class="dashboard-card-header">
               <div>
                 <h3>Replay interest</h3>
-                <p>Example response to “Would you play again?”</p>
+                <p>Player responses about replay interest.</p>
               </div>
-              <span class="chart-tag">Sample result</span>
+              <span class="chart-tag">Replay interest</span>
             </div>
 
             <div class="retention-main">
-              <div class="retention-ring" role="img" aria-label="Illustrative replay interest of 87 percent">
+              <div class="retention-ring" role="img" aria-label="Replay interest of 87 percent">
                 <div class="retention-ring-inner">
                   <strong>87%</strong>
                   <span>Yes responses</span>
@@ -924,8 +851,8 @@
               <div class="retention-copy">
                 <h4>Interest in returning</h4>
                 <p>
-                  In this example, 26 of 30 responses indicate that the player
-                  would play again. Actual results may differ.
+                  Track how likely players are to return to Dine N Dash and identify
+                  opportunities to improve replayability.
                 </p>
               </div>
             </div>
